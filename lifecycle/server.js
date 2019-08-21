@@ -92,8 +92,8 @@ const buildNewDiaryJson = function(year, month){
     let json = {
         "year": year,
         "month": month,
-        "name": "インフォテック太郎",
-        "author": "同上",
+        "name": "",
+        "author": "",
         "days": {}
     }
 
