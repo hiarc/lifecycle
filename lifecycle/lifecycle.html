@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>睡眠・覚醒リズム表</title>
+        <link rel="stylesheet" type="text/css" href="./ress.css" />
+        <link rel="stylesheet" type="text/css" href="./lifecycle.css" />
+        
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="container" id="lifecycle">
+                <header class="header">
+                    <div>
+                        <h1>睡眠・覚醒リズム表</h1>
+                        <label for="selectedYear">
+                            <select id="selectedYear" v-model=selectedYear>
+                                <option v-for="year in selectYear" :value="year">{{year}}</option>
+                            </select>
+                            年
+                        </label>
+                        <label for="selectedMonth">
+                            <select id="selectedMonth" v-model="selectedMonth" @change="changeDialy()">
+                                <option v-for="month in selectMonth" :value="month">{{month}}</option>
+                            </select>
+                            月
+                        </label>
+                        <button @click="saveDialy()">
+                            保存
+                        </button>
+                    </div>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>氏名</td>
+                                <td><input type="text" placeholder="インフォテック太郎" class="_aligncenter" v-model="loaded.name"></td>
+                            </tr>
+                            <tr>
+                                <td>記入者</td>
+                                <td><input type="text" placeholder="インフォテック花子" class="_aligncenter" v-model="loaded.author"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </header>
+
+                <main class="main">
+                    <div class="main-row _bold">
+                        <div>
+                            日付
+                        </div>
+                        <div>
+                           
+                        </div>
+                        <div>
+                            気分
+                        </div>
+                        <div>
+                            日常行動
+                        </div>
+                    </div>
+
+                    <div class="main-row _white _sticky">
+                        <div></div>
+                        <div>
+                            <div class="hour_header" v-for="n in 24">
+                                {{n-1}}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="hour_header" v-for="n in 5">
+                                {{n-3}}
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="main-row" v-for="date in Object.keys(loaded.days).length" oncontextmenu="return false;">
+                        <div>
+                            <div class="date _alignright">
+                                {{date}}日
+                            </div>
+                            <div class="weekday">
+                                ({{loaded.days[date].weekday}})
+                            </div>
+                        </div>
+                        <div>
+                            <div class="hour" v-for="n in 24" @click.left="changeLifeCycleType(date, n)" @click.right="deleteLifeCycleData(date, n)" :class="computeLifeCycleType(date, n)">
+                            </div>
+                        </div>
+                        <div>
+                            <input type="radio" :name="date" class="level" v-for="n in 5" :value="n-3" v-model="loaded.days[date].level">
+                        </div>
+                        <div>
+                            <input type="text" class="event" v-model="loaded.days[date].note"> 
+                        </div>
+                    </div>
+                </main>
+                <footer class="footer">
+                    <h1>記入のしかた</h1>
+                    <ul>
+                        <li>睡眠薬を飲んだ時間：<div class="hour drag _inlineblock _posit"></div></li>
+                        <li>外出した時間：<div class="hour goout _inlineblock _posit"></div></li>
+                        <li>眠りの状態：
+                            <ul class="_margin-left">
+                                <li>ぐっすり眠った<div class="hour sleep_deep _inlineblock _posit"></div></li>
+                                <li>うとうとしていた<div class="hour sleep_light _inlineblock _posit"></div></li>
+                                <li>眠らずに床についていた<div class="hour sleep_awake _inlineblock _posit"></div></li>
+                            </ul>
+                        </li>
+                        <li>気分の状態：（-2）ひどく悪い、（-1）すこし悪い、（0）普通、（+1）好調、（+2）絶好調</li>
+                        <li>日常行動：日常生活の坑道を記載してください。（たとえば「図書館に行った」など）</li>
+                        <li>記入者一注：以下の目的で、気分と日常行動の項目はご本人以外の家族にもつけてもらう場合があります。
+                            <ol class="_margin-left">
+                                <li>主観と客観のずれを確認する。</li>
+                                <li>ご本人が、他者の評価を受け入れる手助けにする。</li>
+                            </ol>   
+                        </li>
+                    </ul>
+                </footer>
+            </div>
+        </div>  
+
+        <script src="./vue.js"></script>
+        <script src="./lifecycle.js"></script>
+    </body>
+
+</html>
