@@ -1,4 +1,4 @@
-console.log('server setup...');
+﻿console.log('server setup...');
 
 const http = require('http');
 const filesystem = require('fs');
@@ -11,7 +11,7 @@ const server = http.createServer();
  * カレンダーへの保存はPOSTかつjsonを受信した場合とする
  */
 server.on('request', function(req, res) {
-    const accessFilePath = '.' + req.url;
+    const accessFilePath = process.env.LIFECYCLE_ROOT + req.url; //dockerコンテナ起動時に指定するコンテナ上のアドレス
     switch (req.method){
         case 'GET' : 
             if(req.url.endsWith('.html')){
@@ -40,7 +40,7 @@ server.on('request', function(req, res) {
                     }
                 });
             }else if(req.url == '/favicon.ico'){
-                res.writeHead(404, {'Content-Type' : 'text/html'});
+                res.writeHead(200, {'Content-Type' : 'image/x-icon'});
                 res.end();
             }
             break;

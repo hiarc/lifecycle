@@ -24,12 +24,12 @@ var lifecycle = new Vue({
         // ------------------------------------------------------ カレンダー操作
         changeDialy: function(){
             let filename = this.selectedYear + this.zeroPadding(this.selectedMonth, 2);
-            let path = 'http://localhost:3000/data/' + filename + '.json';
+            let path = location.protocol + '//' + location.host + '/data/' + filename + '.json';
             let json = this.loadFile(path);
         },
         saveDialy: function(){
             let filename = this.selectedYear + this.zeroPadding(this.selectedMonth, 2);
-            let path = 'http://localhost:3000/data/' + filename + '.json';
+            let path = location.protocol + '//' + location.host + '/data/' + filename + '.json';
             let json = this.saveFile(path);
         },
         changeLifeCycleType: function(date, hour){
