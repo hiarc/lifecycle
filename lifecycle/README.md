@@ -7,6 +7,7 @@
 * 2行目を **lifecycle.bat と同じフォルダ名** に書き換えます。
 
 変更例（Windows）：
+
 ![](./img/c5.PNG)
 
 * ファイルを上書き保存し、 lifecycle.bat を閉じます。
